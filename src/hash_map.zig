@@ -38,6 +38,13 @@ const HashMap = struct {
     ///
     /// The Hash probably needs a counter that gets updated with each addition,
     /// because I can't imagine how else we'd keep track of the array length.
+    ///
+    /// Also, this function behaves wrong. We are very clearly getting collisions,
+    /// but I don't really know how to fix them at the moment. I would prefer to fix
+    /// them now, since the map is static, but I don't know enough about collision detection.
+    /// I eyeballed the Wikipedia page, and Separate Chaining for example seems
+    /// pretty hard for me to implement. I'll take my time with it and maybe fix it later.
+    /// https://en.wikipedia.org/wiki/Hash_table#Separate_chaining
     pub fn set(s: *HashMap, key: []const u8, value: []const u8) void {
         const index = HashMap.FNV1_hash(key) % ARRAY_LENGTH;
         s.items[index] = Item{ .key = key, .value = value };
