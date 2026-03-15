@@ -24,11 +24,12 @@ const Item = struct {
 /// that has a set size. There's no need to do any memory allocations
 /// right now, but this should obviously have a dynamic size later.
 const HashMap = struct {
+    index: u64,
     items: [ARRAY_LENGTH]?Item,
 
     /// initializes the HashMap with an array of 16 items, with null values.
     pub fn init() HashMap {
-        return HashMap{ .items = [_]?Item{null} ** ARRAY_LENGTH };
+        return HashMap{ .index = 0, .items = [_]?Item{null} ** ARRAY_LENGTH };
     }
 
     /// I don't know if you set the index actually like this. I just calculate
@@ -45,7 +46,7 @@ const HashMap = struct {
     /// I really know nothing about hashing functions. I found this site that
     ///
     /// Apparently the Fowler–Noll–Vo hash function is pretty simple to implement?
-    /// Zig seems to have implemented one but I'll try doing this myself...
+    /// Zig seems to have implemented one but I'll do things for fun here...
     ///
     /// I practically copied this whole function from Wikipedia
     ///
@@ -54,6 +55,9 @@ const HashMap = struct {
         var hash: u64 = 0xcbf29ce484222325;
 
         for (key) |k| {
+            // I don't think there's a reason
+            // to use @MulWithOverflow here
+            // so I will just wrap it
             hash = hash *% 0x100000001b3;
             hash = hash ^ k;
         }
@@ -67,9 +71,23 @@ test "Create HashMap and print items..." {
 
     HashMap.set(&s, "quick", "value");
     HashMap.set(&s, "fox", "value");
+    HashMap.set(&s, "hello", "value");
+    HashMap.set(&s, "world", "value");
+    HashMap.set(&s, "git", "value");
+    HashMap.set(&s, "linux", "value");
+    HashMap.set(&s, "fedora", "value");
+    HashMap.set(&s, "bsd", "value");
+    HashMap.set(&s, "firefox", "value");
+    HashMap.set(&s, "car", "value");
+    HashMap.set(&s, "cat", "value");
+    HashMap.set(&s, "keyboard", "value");
+    HashMap.set(&s, "jira", "value");
+    HashMap.set(&s, "audi", "value");
+    HashMap.set(&s, "tree", "value");
+    HashMap.set(&s, "bird", "value");
 
     for (0..s.items.len) |i| {
-        std.debug.print("item: {any}; {any}\n", .{ i, s.items[i] });
+        std.debug.print("item: {}; {any}\n", .{ i, s.items[i] });
     }
 }
 
