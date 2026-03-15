@@ -1,2 +1,2 @@
-# kv-store
-kv-store is a personal hobby project of mine with the intent to learn Zig and Go. Zig is used to write libraries for the internals, mainly data structures and algorithms, and Go is going to interact with these libraries and work as a network layer. There's really no other reason for this weird choice of languages than doing something fun, I suppose.
+# libkv
+libkv is a personal hobby project with the intent to learn Zig. Initially I wanted to make a key-value database in Go, but eventually wanted to write the storage engine for it in a low-level language so I'd get more control and learn how to manage memory, and how to implement some data structures and algorithms. I moved the Go part of this project and I'll keep this as a library I could maybe share with other projects...
